@@ -1,7 +1,7 @@
 
-#security-token-analytics
+# security-token-analytics
 
-#####Security token analytics with blockchain ETL on Kubernetes and Airflow.
+##### Security token analytics with blockchain ETL on Kubernetes and Airflow.
 
 The objective is to build a batch data pipeline to measure the development of 
 security token standards and transaction levels on the Ethereum blockchain 
@@ -21,9 +21,9 @@ a public blockchain.  "Blockchain ETL" is a good description of this process
 and the name of the [current open source project](https://github.com/blockchain-etl) 
 we utilize.  
 
-##Tech Stack
+## Tech Stack
 
-####Airflow
+#### Airflow
 
 Airflow will serve as a scheduler coordinating the following pipeline tasks:
 
@@ -35,7 +35,7 @@ High availability of the Airflow webserver and scheduler process will be
 implemented using Kubernetes deployments and load balancing features.
 
 
-####Kubernetes (k8s)
+#### Kubernetes (k8s)
 
 Kubernetes will provide cluster orchestration services. This will allow us to 
 implement highly available Airflow webserver and scheduler processes. The 
@@ -51,7 +51,7 @@ cluster will scale by adding additional EC2 instances as nodes in the EKS cluste
 High resource utilization will be achieved using autoscaling policies.
 
 
-####geth
+#### geth
 
 [geth](https://github.com/ethereum/go-ethereum/wiki/Geth) is the command line 
 interface for running a full ethereum node implemented in Go.  We will run a 
@@ -61,7 +61,7 @@ with the intention of using it to scale the data extraction process (i.e. multip
 copies of the blockchain and load balancing in front of the API.
 
 
-####ethereum-etl
+#### ethereum-etl
 
 We intend to utilize code from the 
 [blockchain-etl project](https://github.com/blockchain-etl) sponsored by 
@@ -70,13 +70,13 @@ high-quality codebase (credit goes to [Evgeny Medvedev](https://github.com/medve
 and [Allen Day](https://github.com/allenday)).
 
 
-####S3
+#### S3
 S3 will serve as a ["data lake"](https://aws.amazon.com/big-data/datalakes-and-analytics/what-is-a-data-lake/)
 for all extracted blockchain data.  The analytical database will either load 
 data from S3 or consist of a metastore defining tables on S3.
 
 
-####Terraform
+#### Terraform
 
 Terraform modules will be used to provision the following AWS resources:
 
@@ -110,9 +110,9 @@ The Kubernetes secret store will be used to protect secrets and provide them to
 containers as environment variables at runtime.
 
 
-##Engineering Challenges
+## Engineering Challenges
 
-####Scalability / Resource Utilization
+#### Scalability / Resource Utilization
 
 Our Kubernetes / Airflow cluster must scale support high concurrency of Airflow 
 workers and tasks.  At the same time the Airflow scheduler must backoff if 
@@ -131,7 +131,7 @@ failures of the following components:
 * Ethereum-etl tasks
 * Geth nodes
 
-####Task state / DAG visibility
+#### Task state / DAG visibility
 
 The current ethereum-etl project runs a sequence of tasks to extract logical
 objects from the blockchain. Downstream tasks depend on the output of upstream 
@@ -153,7 +153,7 @@ The following methodologies are most prevalent:
 1. Syncing a shared volume with remote storage such as git or S3
 2. "Pre-baked" DAGs deployed w/ the airflow container.
 
-####Reproducibility 
+#### Reproducibility 
 
 To support legal and regulatory use cases our analysis must support some degree
 of reproducibility.  For example, criminal investigations require 
@@ -162,7 +162,7 @@ be able to repeatedly extract historical data from the blockchain to validate ou
 results.  As the size of the blockchain increases, this will require a scalable 
 distributed system.
 
-####Data security
+#### Data security
 
 There is a growing growing demand for joining public blockchain data on 
 proprietary datasets.  As a result security features must be sufficient 
@@ -176,7 +176,7 @@ the Kubernetes cluster managemnet API.  These policies will be implemented
 using Kubernetes RBAC and AWS IAM role configuration.
 
 
-####Utilizing ethereum-etl code
+#### Utilizing ethereum-etl code
  
 There will be some work related to adapting this code to work on AWS in 
 addition to GCP.  We intend to communicate with the core developers to
@@ -184,7 +184,7 @@ ensure that we can contribute back to the project and do not unnecessarily
 fork their code.  
 
 
-##Business Value
+## Business Value
 
 Potential use cases include:
 * Platform for blockchain analytics and machine learning
