@@ -21,6 +21,12 @@ a public blockchain.  "Blockchain ETL" is a good description of this process
 and the name of the [current open source project](https://github.com/blockchain-etl) 
 we utilize.  
 
+## Documentation
+
+### Table of Contents
+1.  [Setting up Kubernetes / EKS](/k8s/README.md)
+
+
 ## Tech Stack
 
 #### Airflow
