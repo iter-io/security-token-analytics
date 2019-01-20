@@ -1,25 +1,22 @@
 
 # security-token-analytics
 
-##### Security token analytics with blockchain ETL on Kubernetes and Airflow.
-
-The objective is to build a batch data pipeline to measure the development of 
-security token standards and transaction levels on the Ethereum blockchain 
-(e.g. [ERC 1400](https://github.com/ethereum/EIPs/issues/1411)) By combining 
-Airflow with Kubernetes we will provide a platform for extracting data from 
-blockchain nodes and loading it into an analytical database.  
+The objective of this project is to build a batch data pipeline to measure the 
+development of security token standards and transaction levels on the Ethereum 
+blockchain (e.g. [ERC 1400](https://github.com/ethereum/EIPs/issues/1411)).  We 
+will provide a scalable platform for extracting data from blockchain nodes and 
+loading it into an analytical database.  
 
 Our system will have the following capabilities:
 
-1. Scalability to handle exponential growth in block size.
+1. Scalability to handle exponential growth in blockchain data size.
 2. Fault-tolerant pipeline to maintain data recency.
 3. Reproducible analysis to support legal / regulatory use cases.
 4. Security features suitable for protecting proprietary data.
 
-It will serve as an example for how to run rapid and reproducible analyses of 
-a public blockchain.  "Blockchain ETL" is a good description of this process 
-and the name of the [current open source project](https://github.com/blockchain-etl) 
-we utilize.  
+It will serve as an example for how to run analyses of a public blockchain.  
+"Blockchain ETL" is a good description of this process and the name of the 
+[current open source project](https://github.com/blockchain-etl) we utilize. 
 
 ## Documentation
 
@@ -170,9 +167,9 @@ distributed system.
 
 #### Data security
 
-There is a growing growing demand for joining public blockchain data on 
-proprietary datasets.  As a result security features must be sufficient 
-for protecting proprietary data stored on the platform.  
+There is a growing demand for joining public blockchain data on proprietary 
+datasets.  As a result security features must be sufficient for protecting 
+proprietary data stored on the platform.  
 
 We specifically expect security issues related to protecting our network 
 while receiving data on our blockchain nodes.  Running these nodes will 
