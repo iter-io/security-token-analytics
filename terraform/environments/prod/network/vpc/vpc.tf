@@ -49,6 +49,16 @@ module "vpc" {
     terraform = "true"
     environment = "prod"
   }
+
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = "true"
+    "kubernetes.io/cluster/insight-prod-cluster" = "shared"
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/role/internal-elb" = "true"
+  }
+
 }
 
 output "private_subnets" {
