@@ -23,3 +23,7 @@ terraform {
 resource "aws_ecr_repository" "security_token_analytics" {
   name = "security-token-analytics"
 }
+
+resource "aws_ecr_repository" "ethereum-etl" {
+  name = "ethereum-etl"
+}
