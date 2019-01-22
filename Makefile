@@ -27,8 +27,8 @@ upload_docker: build_docker
 
 
 deploy: upload_docker
-	${KUBE} delete -f k8s/airflow-all.yaml
-	${KUBE} create -f k8s/airflow-all.yaml
+	${KUBE} delete -f k8s/deployments.yaml
+	${KUBE} create -f k8s/deployments.yaml
 
 
 venv_activate:
