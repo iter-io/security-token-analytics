@@ -1,0 +1,3 @@
+[submodule "dags/ethereum-etl-airflow"]
+	path = dags/ethereum-etl-airflow
+	url = https://github.com/iter-io/ethereum-etl-airflow.git
