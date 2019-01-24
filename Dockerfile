@@ -45,9 +45,7 @@ RUN set -ex \
         apt-utils \
         curl \
         rsync \
-        netcat \
         locales \
-        unzip \
     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
@@ -59,16 +57,25 @@ RUN set -ex \
     && pip install google-api-python-client \
     && pip install httplib2 \
     && pip install ethereum-etl \
+    && pip install mythril \
+    && pip install pyetherchain \
     && pip install pandas \
     && pip install pandas-gbq \
-    #
+    # Required by Airflow
     && pip install pytz \
+    && pip install cryptography \
+    && pip install requests \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
-    && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
+    && pip install psycopg2 \
+    && pip install celery>=4.0.0 \
+    && pip install flower>=0.7.3 \
+    && pip install Flask-WTF==0.14 \
+    && pip install click \
     && pip install 'redis>=2.10.5,<3' \
     && pip install kubernetes \
+    && pip install git+https://github.com/apache/airflow.git \
     && if [ -n "${PYTHON_DEPS}" ]; then pip install ${PYTHON_DEPS}; fi \
     && apt-get purge --auto-remove -yqq $buildDeps \
     && apt-get autoremove -yqq --purge \
@@ -86,6 +93,10 @@ COPY k8s/ethereum_etl_job.yaml ${AIRFLOW_HOME}/ethereum_etl_job.yaml
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
 COPY ./dags ${AIRFLOW_HOME}/dags
+
+# Trying to get Kubernetes workers to load our dags
+COPY ./dags /tmp/dags
+
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
