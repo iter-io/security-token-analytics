@@ -1,11 +1,17 @@
-# VERSION 1.10.1
-# AUTHOR: Matthieu "Puckel_" Roisil
-# DESCRIPTION: Basic Airflow container
-# BUILD: docker build --rm -t puckel/docker-airflow .
-# SOURCE: https://github.com/puckel/docker-airflow
+#
+# This Dockerfile is based on Puckel's popular image:
+#
+# https://github.com/puckel/docker-airflow
+#
+# The major differences:
+#
+# 1. Airflow is installed directly from the master branch instead of the
+# tagged releases.
+#
+# 2. Dependencies added for ethereum-etl.
+#
 
 FROM python:3.6-slim
-LABEL maintainer="Puckel_"
 
 # Never prompts the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
@@ -89,7 +95,6 @@ RUN set -ex \
         /usr/share/doc-base
 
 COPY script/entrypoint.sh /entrypoint.sh
-COPY k8s/ethereum_etl_job.yaml ${AIRFLOW_HOME}/ethereum_etl_job.yaml
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
 COPY ./dags ${AIRFLOW_HOME}/dags
@@ -105,4 +110,6 @@ EXPOSE 8080 5555 8793
 USER airflow
 WORKDIR ${AIRFLOW_HOME}
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["webserver"] # set default arg for entrypoint
+
+# sets default arg for entrypoint
+CMD ["webserver"]
