@@ -21,3 +21,12 @@ module "airflow" {
   environment = "${var.environment}"
   region      = "${var.region}"
 }
+
+
+output "s3_bucket_arn_ethereum_etl_output" {
+  value = "${module.airflow.s3_bucket_arn_ethereum_etl_output}"
+}
+
+output "s3_bucket_arn_airflow_logs" {
+  value = "${module.airflow.s3_bucket_arn_airflow_logs}"
+}
