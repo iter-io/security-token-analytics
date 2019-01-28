@@ -90,7 +90,7 @@ resource "aws_iam_policy" "s3_read_write_policy" {
 
 resource "aws_iam_policy_attachment" "redshift_role_s3_policy_attachment" {
   name       = "${var.project}-${var.environment}-redshift-role-s3-policy-attachment"
-  roles      = ["${aws_iam_service_linked_role.redshift_service_role.arn}"]
+  roles      = ["${aws_iam_service_linked_role.redshift_service_role.name}"]
   policy_arn = "${aws_iam_policy.s3_read_write_policy.arn}"
 
   depends_on = [
