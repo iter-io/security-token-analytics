@@ -8,7 +8,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "insight-base-terraform"
+    bucket = "insight-prod-terraform"
     key    = "services/airflow/airflow.tfstate"
     region = "us-east-1"
   }
