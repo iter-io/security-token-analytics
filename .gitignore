@@ -2,6 +2,7 @@
 .terraform/*
 **/.terraform/*
 **/terraform.tfstate.backup
+**/errored.tfstate
 
 # VIM swap files
 *.swp
