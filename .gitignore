@@ -4,6 +4,9 @@
 **/terraform.tfstate.backup
 **/errored.tfstate
 
+# Secrets
+k8s/secrets.yaml
+
 # VIM swap files
 *.swp
 
