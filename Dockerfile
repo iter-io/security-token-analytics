@@ -78,6 +78,7 @@ ARG AIRFLOW_HOME=/usr/local/airflow
 ARG ETHEREUM_ETL_DEPS="\
     google-api-python-client \
     httplib2 \
+    bitcoin-etl \
     ethereum-etl \
     mythril \
     pyetherchain \
