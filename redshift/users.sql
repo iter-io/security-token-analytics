@@ -27,9 +27,11 @@ CREATE USER emily WITH PASSWORD 'md51ef5fec399320fe29b433cefd0b947b9';
 CREATE USER jared WITH PASSWORD 'md56973f062ac9ff074c44728cf5933219f';
 CREATE USER louis WITH PASSWORD 'md5f33e04a12adccd1d65ef2cf6cf389c23';
 CREATE USER mitchell WITH PASSWORD 'md574a9cff949c98e0ac39bb59fb85fa62b';
+CREATE USER superset WITH PASSWORD 'md537f2206b4fd0aeb36b896c8bafcaec9b';
 
 ALTER GROUP read_only ADD USER
  emily,
  jared,
  louis,
- mitchell;
+ mitchell,
+ superset;
