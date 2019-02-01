@@ -109,8 +109,8 @@ resource "aws_security_group" "redshift" {
 
   ingress {
     protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
+    from_port   = 5439
+    to_port     = 5439
     cidr_blocks = ["0.0.0.0/0"]
   }
 
