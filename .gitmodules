@@ -2,6 +2,3 @@
 	path = dags/ethereum-etl-airflow
 	url = https://github.com/iter-io/ethereum-etl-airflow.git
 	branch = feature-aws
-[submodule "dags/bitcoin-etl-airflow"]
-	path = dags/bitcoin-etl-airflow
-	url = git@github.com:iter-io/bitcoin-etl-airflow.git
