@@ -136,7 +136,7 @@ RUN set -ex \
 
 WORKDIR ${AIRFLOW_HOME}
 
-COPY script/entrypoint.sh /entrypoint.sh
+COPY airflow/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
 COPY ./dags ${AIRFLOW_HOME}/dags
