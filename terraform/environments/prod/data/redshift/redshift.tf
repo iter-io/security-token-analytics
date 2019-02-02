@@ -109,8 +109,8 @@ resource "aws_security_group" "redshift" {
 
   ingress {
     protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
+    from_port   = 5439
+    to_port     = 5439
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -120,6 +120,10 @@ resource "aws_security_group" "redshift" {
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_s3_bucket" "redshift_tables" {
+  bucket = "${var.project}-${var.environment}-redshift-tables"
 }
 
 #
@@ -152,4 +156,8 @@ module "redshift" {
   subnets                             = "${data.terraform_remote_state.vpc_state.public_subnets}"
   vpc_security_group_ids              = ["${aws_security_group.redshift.id}"]
   wlm_json_configuration              = "${var.wlm_json_configuration}"
+}
+
+output "s3_bucket_arn_redshift_tables" {
+  value = "${aws_s3_bucket.redshift_tables.arn}"
 }

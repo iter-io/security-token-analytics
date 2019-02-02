@@ -7,18 +7,13 @@ POSTGRES_PORT=5432
 POSTGRES_CREDS="${POSTGRES_CREDS:-airflow:airflow}"
 AIRFLOW_URL_PREFIX="${AIRFLOW_URL_PREFIX:-}"
 
-if [ -z $FERNET_KEY ]; then
-    FERNET_KEY=$(python3 -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")
-fi
-
-sed -i "s/{{ FERNET_KEY }}/${FERNET_KEY}/" ${AIRFLOW_HOME}/airflow.cfg
 sed -i "s/{{ POSTGRES_HOST }}/${POSTGRES_HOST}/" ${AIRFLOW_HOME}/airflow.cfg
 sed -i "s/{{ POSTGRES_CREDS }}/${POSTGRES_CREDS}/" ${AIRFLOW_HOME}/airflow.cfg
 sed -i "s#{{ AIRFLOW_URL_PREFIX }}#${AIRFLOW_URL_PREFIX}#" ${AIRFLOW_HOME}/airflow.cfg
 
-
 # ethereum-etl
-export OUTPUT_BUCKET="s3://insight-prod-ethereum-etl-output"
+export CLOUD_PROVIDER="aws"
+export OUTPUT_BUCKET="insight-prod-ethereum-etl-output"
 export EXPORT_BLOCKS_AND_TRANSACTIONS=True
 export EXPORT_RECEIPTS_AND_LOGS=True
 export EXTRACT_TOKEN_TRANSFERS=True
@@ -31,6 +26,7 @@ export EXPORT_BATCH_SIZE=10
 export WEB3_PROVIDER_URI_BACKUP="https://mainnet.infura.io"
 export WEB3_PROVIDER_URI_ARCHIVAL="https://mainnet.infura.io"
 export DESTINATION_DATASET_PROJECT_ID="test"
+export DAGS_FOLDER="/usr/local/airflow/dags/ethereum-etl-airflow/dags"
 
 export AIRFLOW__CORE__SQL_ALCHEMY_CONN="postgresql+psycopg2://$POSTGRES_CREDS@$POSTGRES_HOST/airflow"
 
@@ -62,6 +58,7 @@ case "$1" in
     #  # TODO: move to a Helm hook
     # https://github.com/kubernetes/helm/blob/master/docs/charts_hooks.md
     $CMD initdb
+    # https://github.com/apache/airflow/blob/master/docs/security.rst
     airflow users --create --username admin --password password --role Admin --email webster@iteriodata.com --firstname Webster --lastname Cook
     exec $CMD webserver
     ;;

@@ -61,6 +61,14 @@ module "vpc" {
 
 }
 
+output "azs" {
+  value = "${module.vpc.azs}"
+}
+
+output "database_subnet_group" {
+  value = "${module.vpc.database_subnet_group}"
+}
+
 output "private_subnets" {
   value = "${module.vpc.private_subnets}"
 }
