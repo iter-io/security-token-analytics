@@ -40,7 +40,6 @@ data "terraform_remote_state" "bastion_state" {
   }
 }
 
-# TODO:  Get bastion SG id here
 resource "aws_security_group" "worker_group_bastion_ingress" {
   name_prefix = "worker_group_mgmt_one"
   description = "Bastion ingress to be applied to all EKS worker nodes"
@@ -51,6 +50,24 @@ resource "aws_security_group" "worker_group_bastion_ingress" {
     to_port         = 65535
     protocol        = "tcp"
     security_groups = ["${data.terraform_remote_state.bastion_state.security_group_id}"]
+  }
+}
+
+#
+#  Scales the EKS Worker autoscaling group based on CPU utilization
+#
+resource "aws_autoscaling_policy" "eks_workers" {
+  name                      = "${var.project}-${var.environment}-eks-worker-cpu-target-tracking"
+  autoscaling_group_name    = "${element(module.eks.workers_asg_names, 0)}"
+  adjustment_type           = "ChangeInCapacity"
+  policy_type               = "TargetTrackingScaling"
+  estimated_instance_warmup = 60
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 70.0
   }
 }
 
@@ -73,7 +90,7 @@ module "eks" {
 
   worker_groups = [
     {
-      asg_desired_capacity          = "3"                                                      # Desired worker capacity in the autoscaling group.
+      asg_desired_capacity          = "${var.asg_desired_capacity}"                            # Desired worker capacity in the autoscaling group.
       asg_max_size                  = "${var.asg_max_size}"                                    # Maximum worker capacity in the autoscaling group.
       asg_min_size                  = "${var.asg_min_size}"                                    # Minimum worker capacity in the autoscaling group.
       instance_type                 = "${var.instance_type}"                                   # Size of the workers instances.
