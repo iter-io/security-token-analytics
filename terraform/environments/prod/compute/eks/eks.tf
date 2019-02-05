@@ -61,7 +61,7 @@ resource "aws_autoscaling_policy" "eks_workers" {
   autoscaling_group_name    = "${element(module.eks.workers_asg_names, 0)}"
   adjustment_type           = "ChangeInCapacity"
   policy_type               = "TargetTrackingScaling"
-  estimated_instance_warmup = 60
+  estimated_instance_warmup = 300
 
   target_tracking_configuration {
     predefined_metric_specification {
