@@ -1,5 +1,4 @@
 
-
 --
 --  Join at the block level and aggregate by day.
 --

@@ -32,14 +32,10 @@ SELECT
 FROM
   ethereum.transactions AS transactions
 WHERE
-  transactions.block_number IN (
-    SELECT
-      DISTINCT number
-    FROM
-      ethereum.blocks
-    WHERE
-      timestamp BETWEEN {start_timestamp} AND {end_timestamp}
-  )
+  transactions.block_number BETWEEN
+    (SELECT MIN(number) FROM ethereum.blocks WHERE timestamp >= {start_timestamp})
+    AND
+    (SELECT MAX(number) FROM ethereum.blocks WHERE timestamp <= {end_timestamp})
 GROUP BY
   transactions.block_number
 ORDER BY
