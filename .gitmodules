@@ -1,4 +1,4 @@
-[submodule "dags/ethereum-etl-airflow"]
-	path = dags/ethereum-etl-airflow
+[submodule "airflow/dags/ethereum-etl-airflow"]
+	path = airflow/dags/ethereum-etl-airflow
 	url = https://github.com/iter-io/ethereum-etl-airflow.git
 	branch = feature-aws

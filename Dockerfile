@@ -1,5 +1,9 @@
 #
-# This Dockerfile is based on the ones in the Airflow repository:
+# This Dockerfile is used to build a Docker image for Airflow that contains all
+# dependencies and DAGs. This same image is used for the scheduler, webserver,
+# and workers.
+#
+# It's based on the ones in the Airflow repository:
 #
 # https://github.com/apache/airflow/blob/master/Dockerfile
 # https://github.com/apache/airflow/blob/master/scripts/ci/kubernetes/docker/Dockerfile
@@ -14,7 +18,7 @@
 #    releases.  This involves cloning the code from Github into the image and
 #    building the frontend with npm.
 #
-# 2. Dependencies added for ethereum-etl.
+# 2. Dependencies were added for ethereum-etl and bitcoin-etl.
 #
 #
 
@@ -137,12 +141,12 @@ RUN set -ex \
 WORKDIR ${AIRFLOW_HOME}
 
 COPY airflow/entrypoint.sh /entrypoint.sh
-COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+COPY airflow/config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
-COPY ./dags ${AIRFLOW_HOME}/dags
+COPY ./airflow/dags ${AIRFLOW_HOME}/dags
 
 # Trying to get Kubernetes workers to load our dags
-COPY ./dags /tmp/dags
+COPY ./airflow/dags /tmp/dags
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
