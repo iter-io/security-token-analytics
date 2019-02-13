@@ -1,3 +1,5 @@
+## Kubernetes setup
+
 1.  Setup the AWS IAM authenticator:
 
     https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
@@ -25,3 +27,17 @@
     http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
 
 7. Insert the token printed by the setup.sh and click login.
+
+8. To access internal services such as the Airflow web UI, setup a SOCKS proxy 
+   using an alias such as the following:
+
+      `alias insocks='ssh -D 8123 -f -C -q -N inprodbastion'`
+
+9. For debugging purposes you can ssh from your local system through the bastion
+   server to access any of the k8s nodes:
+
+   `ssh -J inprodbastion ec2-user@ip-10-0-102-76.ec2.internal`
+
+    For ease of use setup an alias such as:
+
+    `function jumpto() { ssh -J inprodbastion ec2-user@$1; }`
