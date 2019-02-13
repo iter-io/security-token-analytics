@@ -20,5 +20,7 @@ eks apply -f eks-admin-service-account.yaml
 
 # TODO: Figure out how we can parse the token from this command
 #EKS_ADMIN_AUTH_TOKEN=$()
-eks -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+eks -n kube-system describe secret $(eks -n kube-system get secret | grep eks-admin | awk '{print $1}')
 
+# Create the superset config map
+eks create configmap superset-config --from-file=superset/superset_config.py
