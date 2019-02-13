@@ -28,17 +28,14 @@ export WEB3_PROVIDER_URI_ARCHIVAL="https://mainnet.infura.io"
 export DESTINATION_DATASET_PROJECT_ID="test"
 export DAGS_FOLDER="/usr/local/airflow/dags/ethereum-etl-airflow/dags"
 
-export AIRFLOW__CORE__SQL_ALCHEMY_CONN="postgresql+psycopg2://$POSTGRES_CREDS@$POSTGRES_HOST/airflow"
 
 # Install custom python package if requirements.txt is present
 if [ -e "/requirements.txt" ]; then
     $(which pip) install --user -r /requirements.txt
 fi
 
-
-
-sleep 60
 # wait for postgres
+sleep 60
 #if [ "$1" = "webserver" ] || [ "$1" = "worker" ] || [ "$1" = "scheduler" ] ; then
 #  i=0
 #  while ! nc $POSTGRES_HOST $POSTGRES_PORT >/dev/null 2>&1 < /dev/null; do
