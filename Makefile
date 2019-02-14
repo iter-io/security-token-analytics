@@ -18,18 +18,20 @@ upload_docker: build_docker
 	# Tag our image
 	docker tag $(DOCKER_IMAGE):latest $(DOCKER_IMAGE):$(VERSION)
 
-	# Authenticate with ECR
-	eval $(aws ecr get-login --no-include-email)
-	sleep 5
-
-	# Push to ECR
-	docker push $(DOCKER_IMAGE):$(VERSION)
-	docker push $(DOCKER_IMAGE):latest
+	# Authenticate with ECR and push the image
+	eval $(aws ecr get-login --no-include-email) && docker push $(DOCKER_IMAGE):$(VERSION)
+	eval $(aws ecr get-login --no-include-email) && docker push $(DOCKER_IMAGE):latest
 
 
 deploy: upload_docker
+	echo "Redeploying the Airflow webserver"
 	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform taint --module=airflow kubernetes_deployment.airflow_webserver
 	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform plan -target=module.airflow.kubernetes_deployment.airflow_webserver -out=tfplan
+	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform apply "tfplan"
+
+	echo "Redeploying the Airflow scheduler"
+	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform taint --module=airflow kubernetes_deployment.airflow_scheduler
+	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform plan -target=module.airflow.kubernetes_deployment.airflow_scheduler -out=tfplan
 	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform apply "tfplan"
 
 

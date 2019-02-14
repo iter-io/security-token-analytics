@@ -173,6 +173,137 @@ resource "kubernetes_deployment" "airflow_webserver" {
   }
 }
 
+
+resource "kubernetes_deployment" "airflow_scheduler" {
+  metadata {
+    name = "${var.environment}-${var.application}-scheduler"
+  }
+
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels {
+        app = "${var.environment}-${var.application}-scheduler"
+      }
+    }
+
+    template {
+      metadata {
+        labels {
+          app = "${var.environment}-${var.application}-scheduler"
+        }
+      }
+
+      spec {
+        restart_policy = "Always"
+        service_account_name = "default"
+        container = [
+          {
+            name = "${var.environment}-${var.application}-scheduler"
+            image = "772681551441.dkr.ecr.us-east-1.amazonaws.com/security-token-analytics"
+            image_pull_policy = "Always"
+            args = ["scheduler"]
+
+            env = [
+              {
+                name = "AIRFLOW_HOME"
+                value = "${var.airflow_core_home}"
+              },
+              {
+                name = "AIRFLOW__CORE__ENCRYPT_S3_LOGS"
+                value = "${var.airflow_core_encrypt_s3_logs}"
+              },
+              {
+                name = "AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER"
+                value = "${var.airflow_core_remote_base_log_folder}"
+              },
+              {
+                name = "AIRFLOW__WEBSERVER__RBAC"
+                value = "${var.airflow_webserver_rbac}"
+              },
+              {
+                name = "AIRFLOW_CONN_AWS_DEFAULT"
+                value_from = {
+                  secret_key_ref = {
+                    key = "AIRFLOW_CONN_AWS_DEFAULT"
+                    name = "${var.project}-${var.environment}-airflow"
+                  }
+                }
+              },
+              {
+                name = "AIRFLOW_CONN_REDSHIFT"
+                value_from = {
+                  secret_key_ref = {
+                    key = "AIRFLOW_CONN_REDSHIFT"
+                    name = "${var.project}-${var.environment}-airflow"
+                  }
+                }
+              },
+              {
+                name = "AIRFLOW__CORE__FERNET_KEY"
+                value_from = {
+                  secret_key_ref = {
+                    key = "AIRFLOW__CORE__FERNET_KEY"
+                    name = "${var.project}-${var.environment}-airflow"
+                  }
+                }
+              },
+              {
+                name = "AIRFLOW__CORE__REMOTE_LOG_CONN_ID"
+                value_from = {
+                  secret_key_ref = {
+                    key = "AIRFLOW__CORE__REMOTE_LOG_CONN_ID"
+                    name = "${var.project}-${var.environment}-airflow"
+                  }
+                }
+              },
+              {
+                name = "AIRFLOW__CORE__SQL_ALCHEMY_CONN"
+                value_from = {
+                  secret_key_ref = {
+                    key = "AIRFLOW__CORE__SQL_ALCHEMY_CONN"
+                    name = "${var.project}-${var.environment}-airflow"
+                  }
+                }
+              },
+              {
+                name = "AWS_ACCESS_KEY_ID"
+                value_from = {
+                  secret_key_ref = {
+                    key = "AWS_ACCESS_KEY_ID"
+                    name = "${var.project}-${var.environment}-airflow"
+                  }
+                }
+              },
+              {
+                name = "AWS_SECRET_ACCESS_KEY"
+                value_from = {
+                  secret_key_ref = {
+                    key = "AWS_SECRET_ACCESS_KEY"
+                    name = "${var.project}-${var.environment}-airflow"
+                  }
+                }
+              }
+            ]
+
+            resources {
+              limits {
+                cpu    = "2.0"
+                memory = "1024Mi"
+              }
+              requests {
+                cpu    = "1.0"
+                memory = "512Mi"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
 #
 # Can't add this service using Terraform due to the following:
 #
