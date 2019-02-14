@@ -20,10 +20,10 @@ public blockchains.
 ## Documentation
 
 ### Table of Contents
-1.  [Tech Stack](/docs/tech_stack.md)
+1.  [Getting Started](/docs/getting_started.md)
 2.  [Setting up Kubernetes / EKS](/k8s/README.md)
-3.  [Deployment Process](/docs/deployments.md)
-4.  [Airflow DAGs](/airflow/README.md)
+3.  [Airflow DAGs](/airflow/README.md)
+4.  [Tech Stack](/docs/tech_stack.md)
 5.  [Engineering Challenges](/docs/challenges.md)
 
 
