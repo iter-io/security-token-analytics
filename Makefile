@@ -6,6 +6,7 @@ KUBE = kubectl --context="arn:aws:eks:us-east-1:772681551441:cluster/insight-pro
 VERSION = $(shell git rev-parse --short HEAD)
 IMAGE_FOUND = $(shell docker images \
 			  --format "{{ .Repository }}" --filter "reference=security_token_analytics")
+AIRFLOW_TF_CONFIG_DIR = terraform/environments/prod/services/airflow
 
 test: build_venv
 
@@ -27,8 +28,9 @@ upload_docker: build_docker
 
 
 deploy: upload_docker
-	${KUBE} delete -f k8s/deployments.yaml
-	${KUBE} create -f k8s/deployments.yaml
+	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform taint --module=airflow kubernetes_deployment.airflow_webserver
+	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform plan -target=module.airflow.kubernetes_deployment.airflow_webserver -out=tfplan
+	cd $(AIRFLOW_TF_CONFIG_DIR) && terraform apply "tfplan"
 
 
 venv_activate:

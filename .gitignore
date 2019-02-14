@@ -3,12 +3,16 @@
 **/.terraform/*
 **/terraform.tfstate.backup
 **/errored.tfstate
+tfplan
 
 # Secrets
 k8s/secrets.yaml
 
 # VIM swap files
 *.swp
+
+# Temp files
+# tmp/*
 
 *.zip
 
@@ -21,6 +25,9 @@ k8s/secrets.yaml
 # Jetbrains IDE files
 *.iml
 .idea/
+
+# Temp sql
+redshift/scratch.sql
 
 # VIM swap files
 *.swp
