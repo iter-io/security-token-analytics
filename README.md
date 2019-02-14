@@ -30,8 +30,6 @@ public blockchains.
 ### High-level Architecture
 ![alt text](docs/img/tech_stack.png)
 
+### Example Dashboard
 
-Potential use cases include:
-* Platform for blockchain analytics and machine learning
-* Data pipeline component for algorithmic trading engines
-* Reproducible analysis / CoC for criminal investigations
+![alt text](docs/img/grafana_dashboard.png)
