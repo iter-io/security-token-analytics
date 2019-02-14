@@ -6,7 +6,7 @@
 tfplan
 
 # Secrets
-k8s/secrets.yaml
+k8s/secrets/
 
 # VIM swap files
 *.swp
