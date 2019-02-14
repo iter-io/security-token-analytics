@@ -1,3 +1,5 @@
+![high level architecture](../docs/img/kubernetes_dashboard.png)
+
 ## Kubernetes setup
 
 1.  Setup the AWS IAM authenticator:

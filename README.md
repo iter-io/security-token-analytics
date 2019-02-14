@@ -21,15 +21,15 @@ public blockchains.
 
 ### Table of Contents
 1.  [Getting Started](/docs/getting_started.md)
-2.  [Setting up Kubernetes / EKS](/k8s/README.md)
-3.  [Airflow DAGs](/airflow/README.md)
-4.  [Tech Stack](/docs/tech_stack.md)
-5.  [Engineering Challenges](/docs/challenges.md)
+2.  [Terraform Configs](/terraform/README.md)
+3.  [Setting up Kubernetes / EKS](/k8s/README.md)
+4.  [Airflow DAGs](/airflow/README.md)
+5.  [Tech Stack](/docs/tech_stack.md)
+6.  [Engineering Challenges](/docs/challenges.md)
 
 
 ### High-level Architecture
-![alt text](docs/img/tech_stack.png)
+![high level architecture](docs/img/tech_stack.png)
 
 ### Example Dashboard
-
-![alt text](docs/img/grafana_dashboard.png)
+![example dashboard](docs/img/grafana_dashboard.png)
