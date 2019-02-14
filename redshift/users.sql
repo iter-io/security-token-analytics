@@ -2,22 +2,22 @@
 CREATE SCHEMA IF NOT EXISTS ethereum;
 
 -- Users with write privileges
-CREATE USER webster WITH PASSWORD 'md5cf665ef3f22dbdbac3d814f411289983';
+CREATE USER airflow WITH PASSWORD 'md5cf665ef3f22dbdbac3d814f411289983';
 
-GRANT ALL ON SCHEMA coinmarketcap TO webster;
-GRANT ALL ON ALL TABLES IN SCHEMA coinmarketcap TO webster;
+GRANT ALL ON SCHEMA coinmarketcap TO airflow;
+GRANT ALL ON ALL TABLES IN SCHEMA coinmarketcap TO airflow;
 
-GRANT ALL ON SCHEMA coinmetrics TO webster;
-GRANT ALL ON ALL TABLES IN SCHEMA coinmetrics TO webster;
+GRANT ALL ON SCHEMA coinmetrics TO airflow;
+GRANT ALL ON ALL TABLES IN SCHEMA coinmetrics TO airflow;
 
-GRANT ALL ON SCHEMA ethereum TO webster;
-GRANT ALL ON ALL TABLES IN SCHEMA ethereum TO webster;
+GRANT ALL ON SCHEMA ethereum TO airflow;
+GRANT ALL ON ALL TABLES IN SCHEMA ethereum TO airflow;
 
-GRANT ALL ON SCHEMA multpl TO webster;
-GRANT ALL ON ALL TABLES IN SCHEMA multpl TO webster;
+GRANT ALL ON SCHEMA multpl TO airflow;
+GRANT ALL ON ALL TABLES IN SCHEMA multpl TO airflow;
 
-GRANT ALL ON SCHEMA public TO webster;
-GRANT ALL ON ALL TABLES IN SCHEMA public TO webster;
+GRANT ALL ON SCHEMA public TO airflow;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO airflow;
 
 -- Group with read-only privileges
 CREATE GROUP read_only;
@@ -53,6 +53,7 @@ CREATE USER jared WITH PASSWORD 'md56973f062ac9ff074c44728cf5933219f';
 CREATE USER louis WITH PASSWORD 'md5f33e04a12adccd1d65ef2cf6cf389c23';
 CREATE USER mitchell WITH PASSWORD 'md574a9cff949c98e0ac39bb59fb85fa62b';
 CREATE USER superset WITH PASSWORD 'md537f2206b4fd0aeb36b896c8bafcaec9b';
+CREATE USER webster WITH PASSWORD 'md5cf665ef3f22dbdbac3d814f411289983';
 
 ALTER GROUP read_only ADD USER
  emily,
@@ -60,4 +61,5 @@ ALTER GROUP read_only ADD USER
  jared,
  louis,
  mitchell,
- superset;
+ superset,
+ webster;
