@@ -297,6 +297,23 @@ resource "kubernetes_deployment" "airflow_scheduler" {
                 memory = "512Mi"
               }
             }
+
+            volume_mount = [
+              {
+                mount_path = "/var/run/secrets/kubernetes.io/serviceaccount"
+                name = "default-token-dxwqg"
+                read_only = true
+              }
+            ]
+          }
+        ]
+        volume = [
+          {
+            name = "default-token-dxwqg"
+            secret {
+              default_mode = 420
+              secret_name = "default-token-dxwqg"
+            }
           }
         ]
       }
