@@ -6,16 +6,9 @@
 This project uses blockchain data to provide a platform for financial analysis 
 of crypto assets.  In particular we are researching in 
 emerging standards for [security tokens](https://github.com/ethereum/EIPs/issues/1411) 
-and potential methods of fundamental analysis.
-
-Our system will has the following capabilities:
-
-1. Scalability to handle exponential growth in blockchain data size.
-2. Fault-tolerance to maintain data recency.
-3. Security features suitable for protecting proprietary data.
-
-It will serve as an example for how to build a data pipeline for analyzing
-public blockchains.
+and potential methods of fundamental analysis.  More broadly this project aims 
+to serve as an example for how to build a data pipeline for analyzing public 
+blockchains.
 
 ## Documentation
 
