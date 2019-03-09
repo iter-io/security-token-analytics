@@ -27,6 +27,7 @@ export WEB3_PROVIDER_URI_BACKUP="https://mainnet.infura.io"
 export WEB3_PROVIDER_URI_ARCHIVAL="https://mainnet.infura.io"
 export DESTINATION_DATASET_PROJECT_ID="test"
 export DAGS_FOLDER="/usr/local/airflow/dags/ethereum-etl-airflow/dags"
+export PYTHONPATH="${PYTHONPATH}:/${DAGS_FOLDER}"
 
 
 # Install custom python package if requirements.txt is present
